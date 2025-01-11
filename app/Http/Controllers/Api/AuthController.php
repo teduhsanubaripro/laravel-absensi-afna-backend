@@ -40,17 +40,17 @@ class AuthController extends Controller
     public function updateProfile(Request $request)
     {
         $request->validate([
-            // 'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'image_url' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'face_embedding' => 'required',
         ]);
 
         $user = $request->user();
-        // $image = $request->file('image');
+        $image_url = $request->file('image_url');
         $face_embedding = $request->face_embedding;
 
-        // //save image
-        // $image->storeAs('public/images', $image->hashName());
-        // $user->image_url = $image->hashName();
+        //save image
+        $image_url->storeAs('public/images', $image_url->hashName());
+        $user->image_url = $image_url->hashName();
         $user->face_embedding = $face_embedding;
         $user->save();
 

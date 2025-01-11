@@ -50,5 +50,15 @@
                 </ul>
             </li>
 
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i><span>Permission</span></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="nav-link" href="{{ route('permissions.index') }}">All Permission</a>
+                    </li>
+
+                </ul>
+            </li>
+
     </aside>
 </div>
