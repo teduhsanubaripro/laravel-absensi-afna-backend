@@ -7,6 +7,7 @@ use App\Models\Company;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+// use App\Database\Seeders\AttendanceSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -36,6 +37,10 @@ class DatabaseSeeder extends Seeder
             'time_in' => '07:00',
             'time_out' => '16:00',
 
+        ]);
+
+        $this->call([
+            AttendanceSeeder::class,
         ]);
     }
 }
