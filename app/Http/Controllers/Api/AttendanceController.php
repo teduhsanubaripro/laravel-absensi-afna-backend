@@ -8,13 +8,15 @@ use App\Models\Attendance;
 
 class AttendanceController extends Controller
 {
-    public function checkin (Request $request)
+    public function checkin(Request $request)
     {
+        //validate lat and long
         $request->validate([
             'latitude' => 'required',
             'longitude' => 'required',
         ]);
 
+        //save new attendance
         $attendance = new Attendance;
         $attendance->user_id = $request->user()->id;
         $attendance->date = date('Y-m-d');
@@ -22,7 +24,10 @@ class AttendanceController extends Controller
         $attendance->latlon_in = $request->latitude . ',' . $request->longitude;
         $attendance->save();
 
-        return response(['message' => 'Checkin Success!'], 200);
+        return response([
+            'message' => 'Checkin success',
+            'attendance' => $attendance
+        ], 200);
     }
 
     public function checkout(Request $request)
@@ -55,18 +60,18 @@ class AttendanceController extends Controller
     }
 
     //check is checkedin
-    public function isCheckedin(Request $request)
-    {
-        //get today attendance
-        $attendance = Attendance::where('user_id', $request->user()->id)
-            ->where('date', date('Y-m-d'))
-            ->first();
+    // public function isCheckedin(Request $request)
+    // {
+    //     //get today attendance
+    //     $attendance = Attendance::where('user_id', $request->user()->id)
+    //         ->where('date', date('Y-m-d'))
+    //         ->first();
 
-        $isCheckout = $attendance ? $attendance->time_out : false;
+    //     $isCheckout = $attendance ? $attendance->time_out : false;
 
-        return response([
-            'checkedin' => $attendance ? true : false,
-            'checkedout' => $isCheckout ? true : false,
-        ], 200);
-    }
+    //     return response([
+    //         'checkedin' => $attendance ? true : false,
+    //         'checkedout' => $isCheckout ? true : false,
+    //     ], 200);
+    // }
 }
